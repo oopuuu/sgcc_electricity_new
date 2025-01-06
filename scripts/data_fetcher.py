@@ -213,6 +213,7 @@ class DataFetcher:
     def _get_gass_info(self, driver):
 	driver.get('https://hangzhou1.towngasvcc.com/openapi/uv1/biz/checkRouters?seq=1&token=1&scene=3002&subsCode=1400742730&orgCode=YH0105')
 	logging.info(f"GAS RESP: {driver.page_source}\r")
+	    
     def _login(self, driver, phone_code = False):
 
         driver.get(LOGIN_URL)
@@ -301,7 +302,7 @@ class DataFetcher:
         time.sleep(self.RETRY_WAIT_TIME_OFFSET_UNIT)
         logging.info("Webdriver initialized.")
         updator = SensorUpdator()
-        
+        self._get_gass_info(self, driver)
         try:
             if os.getenv("DEBUG_MODE", "false").lower() == "true":
                 if self._login(driver,phone_code=True):
